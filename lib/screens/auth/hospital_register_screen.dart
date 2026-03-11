@@ -19,6 +19,7 @@ class _HospitalRegisterScreenState extends State<HospitalRegisterScreen> {
   final _phoneController = TextEditingController();
   final _addressController = TextEditingController();
   bool _isLoading = false;
+  bool _obscurePassword = true;
 
   @override
   void dispose() {
@@ -84,131 +85,419 @@ class _HospitalRegisterScreenState extends State<HospitalRegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = MediaQuery.of(context).size.width < 900;
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Hospital Registration'), elevation: 0),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const Icon(Icons.local_hospital, size: 64, color: Colors.green),
-              const SizedBox(height: 16),
-              const Text(
-                'Register Your Hospital',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-              const Text(
-                'Join ResqNow and manage appointments efficiently',
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.grey),
-              ),
-              const SizedBox(height: 32),
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: isMobile ? _buildMobileLayout() : _buildDesktopLayout(),
+      ),
+    );
+  }
 
-              // Hospital Name
-              CustomTextField(
-                label: 'Hospital Name',
-                hint: 'Enter your hospital name',
-                controller: _hospitalNameController,
-                validator: Validators.validateHospitalName,
-                prefixIcon: Icons.business,
+  Widget _buildMobileLayout() {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          // Top decorative section
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(32),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFF1E3A8A), // Deep indigo
+                  Color(0xFF3B82F6), // Vibrant blue
+                ],
               ),
-              const SizedBox(height: 16),
-
-              // Email
-              CustomTextField(
-                label: 'Email Address',
-                hint: 'Enter hospital email',
-                controller: _emailController,
-                validator: Validators.validateEmail,
-                keyboardType: TextInputType.emailAddress,
-                prefixIcon: Icons.email,
-              ),
-              const SizedBox(height: 16),
-
-              // Password
-              CustomTextField(
-                label: 'Password',
-                hint: 'Enter a secure password',
-                controller: _passwordController,
-                validator: Validators.validatePassword,
-                obscureText: true,
-                prefixIcon: Icons.lock,
-              ),
-              const SizedBox(height: 16),
-
-              // Phone
-              CustomTextField(
-                label: 'Phone Number',
-                hint: 'Enter 10-digit phone number',
-                controller: _phoneController,
-                validator: Validators.validatePhoneNumber,
-                keyboardType: TextInputType.phone,
-                prefixIcon: Icons.phone,
-              ),
-              const SizedBox(height: 16),
-
-              // Address
-              TextFormField(
-                controller: _addressController,
-                maxLines: 2,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Address is required';
-                  }
-                  return null;
-                },
-                decoration: InputDecoration(
-                  labelText: 'Address',
-                  hintText: 'Enter hospital address',
-                  prefixIcon: const Icon(Icons.location_on),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
+            ),
+            child: Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 12,
+                  child: const Icon(
+                    Icons.local_hospital,
+                    size: 54,
+                    color: Colors.white,
                   ),
                 ),
-              ),
-              const SizedBox(height: 32),
-
-              // Register Button
-              ElevatedButton(
-                onPressed: _isLoading ? null : _register,
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  backgroundColor: Colors.green,
+                const SizedBox(height: 16),
+                const Text(
+                  'ResqNow Hospital Portal',
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
-                child: _isLoading
-                    ? const SizedBox(
-                        height: 20,
-                        width: 20,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            Colors.white,
-                          ),
-                        ),
-                      )
-                    : const Text(
-                        'Register Hospital',
-                        style: TextStyle(fontSize: 16, color: Colors.white),
+                const SizedBox(height: 8),
+                const Text(
+                  'Register & Grow Your Hospital',
+                  style: TextStyle(fontSize: 14, color: Colors.white70),
+                ),
+              ],
+            ),
+          ),
+          // Registration form
+          Padding(
+            padding: const EdgeInsets.all(24),
+            child: _buildRegistrationForm(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDesktopLayout() {
+    return Row(
+      children: [
+        // Left info section
+        Expanded(
+          flex: 1,
+          child: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFF1E3A8A), // Deep indigo
+                  Color(0xFF3B82F6), // Vibrant blue
+                ],
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(48),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(24),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: const Icon(
+                      Icons.local_hospital,
+                      size: 80,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+                  const Text(
+                    'Join ResqNow',
+                    style: TextStyle(
+                      fontSize: 36,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Expand your hospital\'s reach and connect with patients needing emergency care',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white.withOpacity(0.9),
+                      height: 1.5,
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: Colors.white.withOpacity(0.2)),
+                    ),
+                    child: const Text(
+                      '✓ Manage your doctors & schedules\n'
+                      '✓ Appear in ResqNow app\n'
+                      '✓ Receive & manage requests',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.white,
+                        height: 2,
                       ),
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 16),
-
-              // Login Link
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: const Text('Already registered? Login here'),
-              ),
-            ],
+            ),
           ),
         ),
+        // Right registration form section
+        Expanded(
+          flex: 1,
+          child: Center(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(48),
+              child: _buildRegistrationForm(),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildRegistrationForm() {
+    return Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Text(
+            'Create Account',
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF1E3A8A),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Register your hospital and start managing appointments',
+            style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+          ),
+          const SizedBox(height: 28),
+
+          // Hospital Name
+          TextFormField(
+            controller: _hospitalNameController,
+            validator: Validators.validateHospitalName,
+            decoration: InputDecoration(
+              labelText: 'Hospital Name',
+              hintText: 'Enter your hospital name',
+              prefixIcon: const Icon(Icons.business_outlined),
+              prefixIconColor: const Color(0xFF3B82F6),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide(color: Colors.grey.shade300),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: const BorderSide(
+                  color: Color(0xFF3B82F6),
+                  width: 2,
+                ),
+              ),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 14,
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+
+          // Email
+          TextFormField(
+            controller: _emailController,
+            keyboardType: TextInputType.emailAddress,
+            validator: Validators.validateEmail,
+            decoration: InputDecoration(
+              labelText: 'Email Address',
+              hintText: 'Enter hospital email',
+              prefixIcon: const Icon(Icons.email_outlined),
+              prefixIconColor: const Color(0xFF3B82F6),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide(color: Colors.grey.shade300),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: const BorderSide(
+                  color: Color(0xFF3B82F6),
+                  width: 2,
+                ),
+              ),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 14,
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+
+          // Password
+          TextFormField(
+            controller: _passwordController,
+            obscureText: _obscurePassword,
+            validator: Validators.validatePassword,
+            decoration: InputDecoration(
+              labelText: 'Password',
+              hintText: 'Enter a secure password',
+              prefixIcon: const Icon(Icons.lock_outline),
+              prefixIconColor: const Color(0xFF3B82F6),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                  color: const Color(0xFF3B82F6),
+                ),
+                onPressed: () {
+                  setState(() => _obscurePassword = !_obscurePassword);
+                },
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide(color: Colors.grey.shade300),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: const BorderSide(
+                  color: Color(0xFF3B82F6),
+                  width: 2,
+                ),
+              ),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 14,
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+
+          // Phone
+          TextFormField(
+            controller: _phoneController,
+            keyboardType: TextInputType.phone,
+            validator: Validators.validatePhoneNumber,
+            decoration: InputDecoration(
+              labelText: 'Phone Number',
+              hintText: 'Enter 10-digit phone number',
+              prefixIcon: const Icon(Icons.phone_outlined),
+              prefixIconColor: const Color(0xFF3B82F6),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide(color: Colors.grey.shade300),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: const BorderSide(
+                  color: Color(0xFF3B82F6),
+                  width: 2,
+                ),
+              ),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 14,
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+
+          // Address
+          TextFormField(
+            controller: _addressController,
+            maxLines: 2,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Address is required';
+              }
+              return null;
+            },
+            decoration: InputDecoration(
+              labelText: 'Address',
+              hintText: 'Enter hospital address',
+              prefixIcon: const Icon(Icons.location_on_outlined),
+              prefixIconColor: const Color(0xFF3B82F6),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide(color: Colors.grey.shade300),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: const BorderSide(
+                  color: Color(0xFF3B82F6),
+                  width: 2,
+                ),
+              ),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 14,
+              ),
+            ),
+          ),
+          const SizedBox(height: 28),
+
+          // Register Button
+          ElevatedButton(
+            onPressed: _isLoading ? null : _register,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF3B82F6),
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.symmetric(vertical: 14),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              elevation: 2,
+            ),
+            child: _isLoading
+                ? const SizedBox(
+                    height: 20,
+                    width: 20,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                    ),
+                  )
+                : const Text(
+                    'Create Account',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                  ),
+          ),
+          const SizedBox(height: 16),
+
+          // Login Link
+          Center(
+            child: Wrap(
+              alignment: WrapAlignment.center,
+              children: [
+                Text(
+                  'Already registered? ',
+                  style: TextStyle(color: Colors.grey.shade600),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 0),
+                  ),
+                  child: const Text(
+                    'Sign In',
+                    style: TextStyle(
+                      color: Color(0xFF3B82F6),
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
