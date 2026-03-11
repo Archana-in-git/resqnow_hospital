@@ -45,6 +45,7 @@ class _HospitalDashboardState extends State<HospitalDashboard> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: const Color(0xFF1E3A8A),
+        iconTheme: const IconThemeData(color: Colors.white),
         title: const Text('Hospital Dashboard'),
         centerTitle: false,
         titleTextStyle: const TextStyle(
@@ -111,7 +112,7 @@ class _HospitalDashboardState extends State<HospitalDashboard> {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.08),
+            color: Colors.grey.withValues(alpha: 0.08),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -193,7 +194,7 @@ class _HospitalDashboardState extends State<HospitalDashboard> {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF3B82F6).withOpacity(0.3),
+            color: const Color(0xFF3B82F6).withValues(alpha: 0.3),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -207,7 +208,7 @@ class _HospitalDashboardState extends State<HospitalDashboard> {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.2),
+                  color: Colors.white.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: const Icon(

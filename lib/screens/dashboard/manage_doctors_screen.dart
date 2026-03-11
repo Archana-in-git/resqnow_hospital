@@ -3,7 +3,6 @@ import '../../models/doctor_model.dart';
 import '../../services/auth_service.dart';
 import '../../services/doctor_service.dart';
 import '../../widgets/custom_textfield.dart';
-import '../../widgets/hospital_sidebar.dart';
 
 class ManageDoctorsScreen extends StatefulWidget {
   const ManageDoctorsScreen({super.key});
@@ -194,13 +193,6 @@ class _ManageDoctorsScreenState extends State<ManageDoctorsScreen> {
     }
   }
 
-  void _logout(BuildContext context) async {
-    await AuthService.logout();
-    if (context.mounted) {
-      Navigator.of(context).pushReplacementNamed('/login');
-    }
-  }
-
   @override
   void dispose() {
     _doctorNameController.dispose();
@@ -218,6 +210,10 @@ class _ManageDoctorsScreenState extends State<ManageDoctorsScreen> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: const Color(0xFF1E3A8A),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.pop(context),
+        ),
         title: const Text('Manage Doctors'),
         centerTitle: false,
         titleTextStyle: const TextStyle(
@@ -225,10 +221,6 @@ class _ManageDoctorsScreenState extends State<ManageDoctorsScreen> {
           fontWeight: FontWeight.bold,
           color: Colors.white,
         ),
-      ),
-      drawer: HospitalSidebar(
-        hospitalName: 'Your Hospital',
-        onLogout: () => _logout(context),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
@@ -260,7 +252,7 @@ class _ManageDoctorsScreenState extends State<ManageDoctorsScreen> {
                     borderRadius: BorderRadius.circular(16),
                     boxShadow: [
                       BoxShadow(
-                        color: const Color(0xFF3B82F6).withOpacity(0.3),
+                        color: const Color(0xFF3B82F6).withValues(alpha: 0.3),
                         blurRadius: 12,
                         offset: const Offset(0, 4),
                       ),
@@ -285,7 +277,7 @@ class _ManageDoctorsScreenState extends State<ManageDoctorsScreen> {
                             'Manage your hospital doctors and schedules',
                             style: TextStyle(
                               fontSize: 14,
-                              color: Colors.white.withOpacity(0.9),
+                              color: Colors.white.withValues(alpha: 0.9),
                             ),
                           ),
                         ],
@@ -296,10 +288,10 @@ class _ManageDoctorsScreenState extends State<ManageDoctorsScreen> {
                           vertical: 8,
                         ),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.2),
+                          color: Colors.white.withValues(alpha: 0.2),
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
-                            color: Colors.white.withOpacity(0.3),
+                            color: Colors.white.withValues(alpha: 0.3),
                           ),
                         ),
                         child: Column(
@@ -370,7 +362,7 @@ class _ManageDoctorsScreenState extends State<ManageDoctorsScreen> {
                       border: Border.all(color: Colors.grey.shade200),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.withOpacity(0.08),
+                          color: Colors.grey.withValues(alpha: 0.08),
                           blurRadius: 8,
                         ),
                       ],
@@ -484,7 +476,7 @@ class _ManageDoctorsScreenState extends State<ManageDoctorsScreen> {
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.08),
+            color: Colors.grey.withValues(alpha: 0.08),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -710,12 +702,12 @@ class _ManageDoctorsScreenState extends State<ManageDoctorsScreen> {
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: doctor.isAvailable
-              ? const Color(0xFF3B82F6).withOpacity(0.2)
+              ? const Color(0xFF3B82F6).withValues(alpha: 0.2)
               : Colors.red.shade200,
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.08),
+            color: Colors.grey.withValues(alpha: 0.08),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -748,7 +740,7 @@ class _ManageDoctorsScreenState extends State<ManageDoctorsScreen> {
                       ),
                       decoration: BoxDecoration(
                         color: doctor.isAvailable
-                            ? const Color(0xFF10B981).withOpacity(0.1)
+                            ? const Color(0xFF10B981).withValues(alpha: 0.1)
                             : Colors.red.shade100,
                         borderRadius: BorderRadius.circular(6),
                       ),
@@ -798,7 +790,7 @@ class _ManageDoctorsScreenState extends State<ManageDoctorsScreen> {
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                          color: const Color(0xFF3B82F6).withOpacity(0.1),
+                          color: const Color(0xFF3B82F6).withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: IconButton(
@@ -819,7 +811,7 @@ class _ManageDoctorsScreenState extends State<ManageDoctorsScreen> {
                       const SizedBox(width: 8),
                       Container(
                         decoration: BoxDecoration(
-                          color: Colors.red.withOpacity(0.1),
+                          color: Colors.red.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: IconButton(

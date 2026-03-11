@@ -66,8 +66,17 @@ class _ManageAppointmentsScreenState extends State<ManageAppointmentsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color(0xFF1E3A8A),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.pop(context),
+        ),
         title: const Text('Manage Appointments'),
-        backgroundColor: Colors.blue,
+        titleTextStyle: const TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
       ),
       body: StreamBuilder<List<HospitalAppointmentModel>>(
         stream: _appointmentService.streamPendingAppointments(

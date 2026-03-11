@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import '../models/appointment_model.dart';
 
 class AppointmentService {
@@ -29,7 +30,7 @@ class AppointmentService {
           )
           .toList();
     } catch (e) {
-      print('Error fetching appointments: $e');
+      debugPrint('Error fetching appointments: $e');
       return [];
     }
   }
@@ -43,7 +44,7 @@ class AppointmentService {
         'status': newStatus,
       });
     } catch (e) {
-      print('Error updating appointment: $e');
+      debugPrint('Error updating appointment: $e');
     }
   }
 
@@ -51,7 +52,7 @@ class AppointmentService {
     try {
       await _firestore.collection('appointments').doc(appointmentId).delete();
     } catch (e) {
-      print('Error deleting appointment: $e');
+      debugPrint('Error deleting appointment: $e');
     }
   }
 }

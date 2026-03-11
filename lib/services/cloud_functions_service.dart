@@ -1,5 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 
 class CloudFunctionsService {
   // Replace with your project ID
@@ -23,13 +24,13 @@ class CloudFunctionsService {
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body) as Map<String, dynamic>;
-        print('Seed response: $data');
+        debugPrint('Seed response: $data');
         return data;
       } else {
         throw Exception('Failed to seed: ${response.body}');
       }
     } catch (e) {
-      print('Error calling seedDatabase: $e');
+      debugPrint('Error calling seedDatabase: $e');
       rethrow;
     }
   }

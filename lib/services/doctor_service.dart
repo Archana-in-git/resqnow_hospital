@@ -77,13 +77,24 @@ class DoctorService {
     try {
       final updates = <String, dynamic>{'updatedAt': Timestamp.now()};
 
-      if (name != null) updates['name'] = name;
-      if (department != null) updates['department'] = department;
-      if (consultationStart != null)
+      if (name != null) {
+        updates['name'] = name;
+      }
+      if (department != null) {
+        updates['department'] = department;
+      }
+      if (consultationStart != null) {
         updates['consultationStart'] = consultationStart;
-      if (consultationEnd != null) updates['consultationEnd'] = consultationEnd;
-      if (experienceYears != null) updates['experienceYears'] = experienceYears;
-      if (isAvailable != null) updates['isAvailable'] = isAvailable;
+      }
+      if (consultationEnd != null) {
+        updates['consultationEnd'] = consultationEnd;
+      }
+      if (experienceYears != null) {
+        updates['experienceYears'] = experienceYears;
+      }
+      if (isAvailable != null) {
+        updates['isAvailable'] = isAvailable;
+      }
 
       await _firestore.collection(_collection).doc(doctorId).update(updates);
     } catch (e) {

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import '../models/hospital_model.dart';
 
 class HospitalService {
@@ -15,7 +16,7 @@ class HospitalService {
           .map((doc) => HospitalModel.fromJson(doc.data(), doc.id))
           .toList();
     } catch (e) {
-      print('Error fetching hospitals: $e');
+      debugPrint('Error fetching hospitals: $e');
       return [];
     }
   }
@@ -31,7 +32,7 @@ class HospitalService {
       }
       return null;
     } catch (e) {
-      print('Error fetching hospital: $e');
+      debugPrint('Error fetching hospital: $e');
       return null;
     }
   }

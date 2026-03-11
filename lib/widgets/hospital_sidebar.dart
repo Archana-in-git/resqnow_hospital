@@ -13,7 +13,8 @@ class HospitalSidebar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: Colors.white,
+      elevation: 0,
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
@@ -23,7 +24,7 @@ class HospitalSidebar extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [Color(0xFF1E3A8A), Color(0xFF3B82F6)],
+                colors: [Colors.white, Colors.white],
               ),
               boxShadow: [
                 BoxShadow(
@@ -38,7 +39,7 @@ class HospitalSidebar extends StatelessWidget {
                 gradient: const LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: [Color(0xFF1E3A8A), Color(0xFF3B82F6)],
+                  colors: [Colors.white, Colors.white],
                 ),
               ),
               child: Column(
@@ -48,13 +49,13 @@ class HospitalSidebar extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2),
+                      color: const Color(0xFF3B82F6).withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: const Icon(
                       Icons.local_hospital,
                       size: 40,
-                      color: Colors.white,
+                      color: Color(0xFF3B82F6),
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -64,7 +65,7 @@ class HospitalSidebar extends StatelessWidget {
                       Text(
                         hospitalName,
                         style: const TextStyle(
-                          color: Colors.white,
+                          color: Color(0xFF1E3A8A),
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
@@ -73,7 +74,7 @@ class HospitalSidebar extends StatelessWidget {
                       Text(
                         'Hospital Admin',
                         style: TextStyle(
-                          color: Colors.white.withOpacity(0.9),
+                          color: Colors.grey.withValues(alpha: 0.7),
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
                         ),
@@ -92,7 +93,7 @@ class HospitalSidebar extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               color: Colors.white,
               border: Border.all(
-                color: const Color(0xFF3B82F6).withOpacity(0.2),
+                color: const Color(0xFF3B82F6).withValues(alpha: 0.2),
               ),
             ),
             child: ListTile(
@@ -123,7 +124,7 @@ class HospitalSidebar extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               color: Colors.white,
               border: Border.all(
-                color: const Color(0xFF3B82F6).withOpacity(0.2),
+                color: const Color(0xFF3B82F6).withValues(alpha: 0.2),
               ),
             ),
             child: ListTile(
@@ -154,7 +155,7 @@ class HospitalSidebar extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               color: Colors.white,
               border: Border.all(
-                color: const Color(0xFF3B82F6).withOpacity(0.2),
+                color: const Color(0xFF3B82F6).withValues(alpha: 0.2),
               ),
             ),
             child: ListTile(
@@ -185,7 +186,7 @@ class HospitalSidebar extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               color: Colors.white,
               border: Border.all(
-                color: const Color(0xFF3B82F6).withOpacity(0.2),
+                color: const Color(0xFF3B82F6).withValues(alpha: 0.2),
               ),
             ),
             child: ListTile(
@@ -219,7 +220,7 @@ class HospitalSidebar extends StatelessWidget {
                 gradient: LinearGradient(
                   colors: [
                     Colors.transparent,
-                    const Color(0xFF3B82F6).withOpacity(0.2),
+                    const Color(0xFF3B82F6).withValues(alpha: 0.2),
                     Colors.transparent,
                   ],
                 ),

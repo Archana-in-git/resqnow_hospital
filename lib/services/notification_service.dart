@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 
 class NotificationService {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -25,7 +26,7 @@ class NotificationService {
         'title': title,
         'message': message,
         'type':
-            'appointment_${status}', // appointment_approved or appointment_rejected
+            'appointment_$status', // appointment_approved or appointment_rejected
         'appointmentId': appointmentId,
         'status': status,
         'doctorName': doctorName,
@@ -34,9 +35,9 @@ class NotificationService {
         'isRead': false,
       });
 
-      print('✓ Appointment notification created for user $userId');
+      debugPrint('✓ Appointment notification created for user $userId');
     } catch (e) {
-      print('Error creating appointment notification: $e');
+      debugPrint('Error creating appointment notification: $e');
       throw Exception('Failed to create appointment notification: $e');
     }
   }
@@ -55,7 +56,7 @@ class NotificationService {
 
       return snapshot.docs.map((doc) => doc.data()).toList();
     } catch (e) {
-      print('Error fetching notifications: $e');
+      debugPrint('Error fetching notifications: $e');
       return [];
     }
   }

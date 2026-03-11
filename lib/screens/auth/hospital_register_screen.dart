@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../services/auth_service.dart';
 import '../../utils/validators.dart';
-import '../../widgets/custom_textfield.dart';
 
 class HospitalRegisterScreen extends StatefulWidget {
   const HospitalRegisterScreen({super.key});
@@ -118,7 +117,7 @@ class _HospitalRegisterScreenState extends State<HospitalRegisterScreen> {
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.2),
+                    color: Colors.white.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: const Icon(
@@ -138,7 +137,7 @@ class _HospitalRegisterScreenState extends State<HospitalRegisterScreen> {
                 ),
                 const SizedBox(height: 8),
                 const Text(
-                  'Register & Grow Your Hospital',
+                  'Join Our Network',
                   style: TextStyle(fontSize: 14, color: Colors.white70),
                 ),
               ],
@@ -179,7 +178,7 @@ class _HospitalRegisterScreenState extends State<HospitalRegisterScreen> {
                   Container(
                     padding: const EdgeInsets.all(24),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.15),
+                      color: Colors.white.withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: const Icon(
@@ -190,7 +189,7 @@ class _HospitalRegisterScreenState extends State<HospitalRegisterScreen> {
                   ),
                   const SizedBox(height: 32),
                   const Text(
-                    'Join ResqNow',
+                    'ResqNow Hospital Portal',
                     style: TextStyle(
                       fontSize: 36,
                       fontWeight: FontWeight.bold,
@@ -199,11 +198,11 @@ class _HospitalRegisterScreenState extends State<HospitalRegisterScreen> {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'Expand your hospital\'s reach and connect with patients needing emergency care',
+                    'Connect with patients needing emergency care in your area',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 16,
-                      color: Colors.white.withOpacity(0.9),
+                      color: Colors.white.withValues(alpha: 0.9),
                       height: 1.5,
                     ),
                   ),
@@ -211,9 +210,11 @@ class _HospitalRegisterScreenState extends State<HospitalRegisterScreen> {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.1),
+                      color: Colors.white.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.white.withOpacity(0.2)),
+                      border: Border.all(
+                        color: Colors.white.withValues(alpha: 0.2),
+                      ),
                     ),
                     child: const Text(
                       '✓ Manage your doctors & schedules\n'
@@ -264,8 +265,7 @@ class _HospitalRegisterScreenState extends State<HospitalRegisterScreen> {
             'Register your hospital and start managing appointments',
             style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
           ),
-          const SizedBox(height: 28),
-
+          const SizedBox(height: 32),
           // Hospital Name
           TextFormField(
             controller: _hospitalNameController,
@@ -297,7 +297,6 @@ class _HospitalRegisterScreenState extends State<HospitalRegisterScreen> {
             ),
           ),
           const SizedBox(height: 16),
-
           // Email
           TextFormField(
             controller: _emailController,
@@ -330,7 +329,6 @@ class _HospitalRegisterScreenState extends State<HospitalRegisterScreen> {
             ),
           ),
           const SizedBox(height: 16),
-
           // Password
           TextFormField(
             controller: _passwordController,
@@ -372,7 +370,6 @@ class _HospitalRegisterScreenState extends State<HospitalRegisterScreen> {
             ),
           ),
           const SizedBox(height: 16),
-
           // Phone
           TextFormField(
             controller: _phoneController,
@@ -405,7 +402,6 @@ class _HospitalRegisterScreenState extends State<HospitalRegisterScreen> {
             ),
           ),
           const SizedBox(height: 16),
-
           // Address
           TextFormField(
             controller: _addressController,
@@ -442,8 +438,7 @@ class _HospitalRegisterScreenState extends State<HospitalRegisterScreen> {
               ),
             ),
           ),
-          const SizedBox(height: 28),
-
+          const SizedBox(height: 24),
           // Register Button
           ElevatedButton(
             onPressed: _isLoading ? null : _register,
@@ -471,7 +466,6 @@ class _HospitalRegisterScreenState extends State<HospitalRegisterScreen> {
                   ),
           ),
           const SizedBox(height: 16),
-
           // Login Link
           Center(
             child: Wrap(

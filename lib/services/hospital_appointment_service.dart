@@ -39,8 +39,7 @@ class HospitalAppointmentService {
         throw Exception('Appointment not found');
       }
 
-      final appointmentData =
-          appointmentDoc.data() as Map<String, dynamic>? ?? {};
+      final appointmentData = appointmentDoc.data() ?? {};
       final userId = appointmentData['userId'] as String?;
       final doctorName = appointmentData['doctorName'] as String?;
       final appointmentDate = appointmentData['preferredDate'] as String?;
@@ -78,8 +77,7 @@ class HospitalAppointmentService {
         throw Exception('Appointment not found');
       }
 
-      final appointmentData =
-          appointmentDoc.data() as Map<String, dynamic>? ?? {};
+      final appointmentData = appointmentDoc.data() ?? {};
       final userId = appointmentData['userId'] as String?;
       final doctorName = appointmentData['doctorName'] as String?;
       final appointmentDate = appointmentData['preferredDate'] as String?;

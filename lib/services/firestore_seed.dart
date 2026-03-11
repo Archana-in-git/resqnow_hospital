@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 
 class FirestoreSeed {
   static Future<void> seedData() async {
@@ -62,6 +63,6 @@ class FirestoreSeed {
       'createdAt': Timestamp.now(),
     });
 
-    print("Hospitals and Appointments Seeded Successfully");
+    debugPrint("Hospitals and Appointments Seeded Successfully");
   }
 }
