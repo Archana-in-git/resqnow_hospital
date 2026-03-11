@@ -237,14 +237,14 @@ class _HospitalDashboardState extends State<HospitalDashboard> {
                         vertical: 4,
                       ),
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.2),
+                        color: Colors.white.withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Text(
                         hospitalData['status']?.toUpperCase() ?? 'PENDING',
                         style: TextStyle(
                           fontSize: 11,
-                          color: Colors.white.withOpacity(0.9),
+                          color: Colors.white.withValues(alpha: 0.9),
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -282,7 +282,7 @@ class _HospitalDashboardState extends State<HospitalDashboard> {
   Widget _buildHeaderInfo(IconData icon, String label, String value) {
     return Row(
       children: [
-        Icon(icon, size: 18, color: Colors.white.withOpacity(0.8)),
+        Icon(icon, size: 18, color: Colors.white.withValues(alpha: 0.8)),
         const SizedBox(width: 8),
         Expanded(
           child: Column(
@@ -292,7 +292,7 @@ class _HospitalDashboardState extends State<HospitalDashboard> {
                 label,
                 style: TextStyle(
                   fontSize: 10,
-                  color: Colors.white.withOpacity(0.7),
+                  color: Colors.white.withValues(alpha: 0.7),
                   fontWeight: FontWeight.w500,
                 ),
               ),

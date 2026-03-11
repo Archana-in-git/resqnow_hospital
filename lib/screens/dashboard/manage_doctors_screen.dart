@@ -50,7 +50,7 @@ class _ManageDoctorsScreenState extends State<ManageDoctorsScreen> {
       initialTime: TimeOfDay.now(),
     );
 
-    if (time != null) {
+    if (time != null && mounted) {
       final formattedTime = time.format(context);
       setState(() {
         if (isStartTime) {
@@ -766,21 +766,25 @@ class _ManageDoctorsScreenState extends State<ManageDoctorsScreen> {
                       DoctorService.updateDoctor(doctor.id, isAvailable: value)
                           .then((_) {
                             _refreshDoctors();
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  value
-                                      ? '${doctor.name} is now available'
-                                      : '${doctor.name} is now unavailable',
+                            if (mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    value
+                                        ? '${doctor.name} is now available'
+                                        : '${doctor.name} is now unavailable',
+                                  ),
+                                  duration: const Duration(seconds: 2),
                                 ),
-                                duration: const Duration(seconds: 2),
-                              ),
-                            );
+                              );
+                            }
                           })
                           .catchError((e) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('Error: $e')),
-                            );
+                            if (mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text('Error: $e')),
+                              );
+                            }
                           });
                     },
                     activeColor: const Color(0xFF10B981),

@@ -5,8 +5,7 @@ import '../../models/hospital_appointment_model.dart';
 class ManageAppointmentsScreen extends StatefulWidget {
   final String hospitalId;
 
-  const ManageAppointmentsScreen({Key? key, required this.hospitalId})
-    : super(key: key);
+  const ManageAppointmentsScreen({super.key, required this.hospitalId});
 
   @override
   State<ManageAppointmentsScreen> createState() =>
@@ -121,11 +120,11 @@ class AppointmentCard extends StatelessWidget {
   final VoidCallback onReject;
 
   const AppointmentCard({
-    Key? key,
+    super.key,
     required this.appointment,
     required this.onApprove,
     required this.onReject,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
